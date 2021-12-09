@@ -7,7 +7,6 @@ const Curso = {
     faltasMáximas: 3,
     listaDeEstudantes: alunos,
     estudantesAprovados: [],
-    mediaEstudantes: Aluno.calcularMedia,
     adicionarAluno: function(nome, faltas, notas) {
         this.listaDeEstudantes.push(new Aluno(nome, faltas, notas));
     },
@@ -27,7 +26,7 @@ const Curso = {
     },
     percorrerAlunos: function() {
         this.listaDeEstudantes.forEach((estudante) => {
-            if (this.AlunoAprovadoOuReprovado(estudante))
+            if (this.AlunoAprovadoOuReprovado(estudante)) 
             this.estudantesAprovados.push({
                 nome: estudante.nome,
                 aprovado: this.AlunoAprovadoOuReprovado(estudante),
@@ -40,3 +39,4 @@ const Curso = {
 Curso.percorrerAlunos();
 console.log(Curso.listaDeEstudantes)
 console.log(Curso.estudantesAprovados)
+

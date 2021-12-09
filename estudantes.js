@@ -15,6 +15,5 @@ aluno4.adicionarFalta();
 aluno5.adicionarFalta();
 
 alunos.push(aluno1, aluno2, aluno3, aluno4, aluno5);
-console.log(alunos)
 module.exports = alunos;
 
