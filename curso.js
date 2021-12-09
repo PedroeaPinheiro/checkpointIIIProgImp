@@ -1,31 +1,42 @@
-const listaDeEstudantes = require('../estudantes');
+const Aluno = require('./aluno');
+const alunos = require('./estudantes');
 
-const curso = {
+const Curso = {
     nomedoCurso: "Programação Imperativa",
     notadeAprovação: 7,
     faltasMáximas: 3,
-    listadeEstudantes: listaDeEstudantes,
+    listaDeEstudantes: alunos,
+    estudantesAprovados: [],
+    mediaEstudantes: Aluno.calcularMedia,
     adicionarAluno: function(nome, faltas, notas) {
-        this.listadeEstudantes.push(new Aluno(nome, faltas, notas));
+        this.listaDeEstudantes.push(new Aluno(nome, faltas, notas));
     },
-    AlunoAprovadoOuReprovado: function(aluno) {
-        const faltas = aluno.faltas;
-        const media = aluno.calcularMedia();
-
+    AlunoAprovadoOuReprovado: function(estudante) {
+        const media = estudante.calcularMedia();
+        const faltas = estudante.faltas;
         if (media < this.notadeAprovação) {
             return false 
-        } 
-        if (faltas > this.faltasMáximas) {
+        } else if (faltas > this.faltasMáximas) {
             return false
-        };
-        if((faltas === this.faltasMáximas) 
+        } else if ((faltas === this.faltasMáximas) 
         && 
-        (media >= this.notadeAprovação * 1.1)) {
-            return true;
-        }
+        (media < this.notadeAprovação * 1.1)) {
             return false;
-        }
-    }
+        } 
+        return "sim"
+    },
+    percorrerAlunos: function() {
+        this.listaDeEstudantes.forEach((estudante) => {
+            if (this.AlunoAprovadoOuReprovado(estudante))
+            this.estudantesAprovados.push({
+                nome: estudante.nome,
+                aprovado: this.AlunoAprovadoOuReprovado(estudante),
+            });
+        });
+    },
+
 }
 
-console.log(curso.AlunoAprovadoOuReprovado(listaDeEstudantes))
+Curso.percorrerAlunos();
+console.log(Curso.listaDeEstudantes)
+console.log(Curso.estudantesAprovados)
